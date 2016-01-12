@@ -83,3 +83,8 @@ exports.makeGitRepo = function (params, cb) {
 
   chain(commands, cb)
 }
+
+var uniquePort = 12345
+exports.freshPort = function () {
+  return uniquePort++
+}

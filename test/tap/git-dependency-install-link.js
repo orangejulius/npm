@@ -18,6 +18,7 @@ var cache = resolve(pkg, 'cache')
 var daemon
 var daemonPID
 var git
+var gitPort = common.freshPort()
 var mockRegistry
 
 var EXEC_OPTS = {
@@ -30,7 +31,7 @@ var pjParent = JSON.stringify({
   name: 'parent',
   version: '1.2.3',
   dependencies: {
-    'child': 'git://localhost:1243/child.git'
+    'child': 'git://localhost:' + gitPort + '/child.git'
   }
 }, null, 2) + '\n'
 
@@ -135,7 +136,7 @@ function setup (cb) {
             '--listen=localhost',
             '--export-all',
             '--base-path=.',
-            '--port=1243'
+            '--port=' + gitPort
           ],
           {
             cwd: pkg,
