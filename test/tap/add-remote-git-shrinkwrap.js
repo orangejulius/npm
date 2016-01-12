@@ -15,12 +15,13 @@ var repo = resolve(__dirname, 'add-remote-git-shrinkwrap-repo')
 var daemon
 var daemonPID
 var git
+var gitPort = common.freshPort()
 
 var pjParent = JSON.stringify({
   name: 'parent',
   version: '1.2.3',
   dependencies: {
-    'child': 'git://localhost:1235/child.git#master'
+    'child': 'git://localhost:' + gitPort + '/child.git#master'
   }
 }, null, 2) + '\n'
 
@@ -121,7 +122,7 @@ function setup (cb) {
           '--listen=localhost',
           '--export-all',
           '--base-path=.',
-          '--port=1235'
+          '--port=' + gitPort
         ],
         {
           cwd: pkg,

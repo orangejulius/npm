@@ -15,12 +15,13 @@ var repo = resolve(__dirname, 'add-remote-git-repo')
 var daemon
 var daemonPID
 var git
+var gitPort = common.freshPort()
 
 var pjParent = JSON.stringify({
   name: 'parent',
   version: '1.2.3',
   dependencies: {
-    child: 'git://localhost:1233/child.git'
+    child: 'git://localhost:' + gitPort + 'child.git'
   }
 }, null, 2) + '\n'
 
@@ -92,7 +93,7 @@ function setup (cb) {
           '--listen=localhost',
           '--export-all',
           '--base-path=.',
-          '--port=1233'
+          '--port=' + gitPort
         ],
         {
           cwd: pkg,
